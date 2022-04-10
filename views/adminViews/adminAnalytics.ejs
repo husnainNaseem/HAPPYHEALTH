@@ -1,0 +1,140 @@
+<!-- <div class="app-main__inner">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 card" style="background-color:hsla(0, 100%, 90%, 0.3);" onclick="location.href = '/adminAnalyticsStep';">
+                <h4>Step</h4>
+                <img src="/static/assets/images/happyHealth/step.png" alt="user_stat">
+                <button type="submit" class="btn btn-outline-secondary"
+                    ><b>step analytics</b></button>
+            </div>
+            <div class="col-sm-3 card" style="background-color:#d8dadb;" onclick="location.href = '/adminAnalyticsSleep';">
+                <h4>Sleep</h4>
+                <img src="/static/assets/images/happyHealth/sleep.jpg" alt="user_stat">
+                <button type="submit" class="btn btn-outline-secondary"
+                    ><b>sleep Analytics</b></button>
+            </div>
+            <div class="col-sm-3 card" style="background-color:#c2dfff;" onclick="location.href = '/adminAnalyticsWater';">
+                <h4>Water intake</h4>
+                <img src="/static/assets/images/happyHealth/water.png" alt="challenge_mgmt">
+                <button type="submit" class="btn btn-outline-secondary"
+                    ><b>water intake analytics</b></button>
+            </div>
+
+            <div class="col-sm-3 card" style="background-color:#fcd999;" onclick="location.href = '/adminAnalyticsMeditation';">
+                <h4>Track-me-time</h4>
+                <img src="/static/assets/images/happyHealth/meditation.png" alt="user_stat">
+                <button type="submit" class="btn btn-outline-secondary"
+                    ><b>track-me-time
+                    analytics</b></button>
+            </div>
+
+            <div class="col-sm-3 card" style="background-color: #e5ffcc;" onclick="location.href = '/adminAnalyticsFruits';">
+                <h4>Fruits Intake</h4>
+                <img src="/static/assets/images/happyHealth/fruits.png" alt="user_fruits">
+                <button type="submit" class="btn btn-outline-secondary"
+                    ><b>Fruits
+                    intake analytics</b> </button>
+            </div>
+
+            <div class="col-sm-3 card" style="background-color: #98ff98;" onclick="location.href = '/adminAnalyticsVegetables';">
+                <h4>Vegetables Intake</h4>
+                <img src="/static/assets/images/happyHealth/vegetable.png" alt="user_vegetables">
+                <button type="submit" class="btn btn-outline-secondary"
+                    ><b>Vegetables intake analytics</b></button>
+            </div>
+
+            <div class="col-sm-3 card" style="background-color:rgb(236, 191, 161);" onclick="location.href = '/adminAnalyticsOverAll';">
+                <h4>OverAll Metrics</h4>
+                <img src="/static/assets//images/happyHealth/statistics.png" alt="user_metrics">
+                <button type="submit" class="btn btn-outline-secondary"
+                    ><b>Overall user analytics</b></button>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="w-100 p-3" style="background-color: #eee;">
+    <h1> OverAll Statistics </h1>
+    <table class="table table-responsive">
+        <thead class="thead-dark">
+            <tr>
+            <tr>
+                <th>#</th>
+                <th scope="col-md-1">UserName </th>
+                <th scope="col-md-1">Full Name</th>
+                <th scope="col-md-1"> Date </th>
+                <th scope="col-md-1"> Step # </th>
+                <th scope="col-md-1"> Target step # </th>
+                <th> Sleeping hours </th>
+                <th scope="col-md-1"> Target sleep hours </th>
+                <th scope="col-md-1"> Me time </th>
+                <th scope="col-md-1"> Target Me time </th>
+                <th scope="col-md-1"> Water</th>
+                <th scope="col-md-1"> Target water count </th>
+                <th scope="col-md-1"> Vegetables</th>
+                <th scope="col-md-1"> Target Vegetables</th>
+                <th scope="col-md-1"> Fruits </th>
+                <th scope="col-md-1">Target fruits</th>
+            </tr>
+            </tr>
+        </thead>
+        <tbody>
+        <tbody>
+            <% for(var i=0; i < obj.length; i++) { %>
+
+            <tr>
+                <td class="col-md-1">
+                    <%= obj[i].userId %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].UserName %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].fullName %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].date %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].stepCount %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].stepGoal %>
+                </td>
+                <td>
+                    <%= obj[i].sleepHours %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].sleepGoal %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].meTime %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].meTimeGoal %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].water %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].waterGoal %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].veggies %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].veggieGoal %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].fruits %>
+                </td>
+                <td class="col-md-1">
+                    <%= obj[i].fruitGoal %>
+                </td>
+            </tr>
+            <% } %>
+
+        </tbody>
+        </tbody>
+    </table>
+</div>

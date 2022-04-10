@@ -1,0 +1,88 @@
+<div class="app-main__inner">
+    <section>
+        <div class="container app-container-wrapper">
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <form method="POST" class="my-5">
+                        <div class="form-group">
+                            <%- include ('./partials/messages') %>
+                                <h2 class="d-flex justify-content-center py-3">Verification</h2>
+                                <h5>Enter the verification code</h5>
+                                <h5>It will be sent to your email</h5>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="code">Verification Code</label>
+                            <input type="text" id="code" name="code" class="form-control" placeholder="000000"
+                                value="<%= typeof code != 'undefined' ? code : '' %>" required/>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div id="countdown"></div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="exampleTimer">Your code will expire in </label>
+                            <input type="time" class="form-control" id="exampleTimer">
+                        </div> -->
+                        <div class="form-group">
+							<input type="button" class="btn btn-danger" value="Cancel" onclick="location.href = '/';">
+                            <input type="submit" class="btn btn-primary value="Submit" id="resend" name="resend">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+    <script>
+        // var timeleft = 600;
+        // var downloadTimer = setInterval(function () {
+        //     if (timeleft <= 0) {
+        //         clearInterval(downloadTimer);
+        //         document.getElementById("countdown").innerHTML = "Code expired";
+        //         document.getElementById("resend").value = "Resend";
+        //     } else {
+        //         document.getElementById("countdown").innerHTML = "Code expires in " + timeleft + " seconds";
+        //     }
+        //     timeleft -= 1;
+        // }, 1000);
+
+		//============
+
+function countdown( elementName, minutes, seconds )
+{
+    var element, endTime, hours, mins, msLeft, time;
+    function twoDigits( n )
+    {
+        return (n <= 9 ? "0" + n : n);
+    }
+    function updateTimer()
+    {
+        msLeft = endTime - (+new Date);
+        if ( msLeft < 1000 ) {
+            // element.innerHTML = "Time is up!";
+			document.getElementById("countdown").innerHTML = "Code expired";
+            document.getElementById("resend").value = "Resend";
+        } else {
+            time = new Date( msLeft );
+            hours = time.getUTCHours();
+            mins = time.getUTCMinutes();
+            rem = (hours ? hours + ':' + twoDigits( mins ) : mins) + ':' + twoDigits( time.getUTCSeconds() );
+            setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );
+
+			document.getElementById("countdown").innerHTML = "Code expires in " + rem ;
+
+        }
+    }
+    element = document.getElementById( elementName );
+    endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
+    updateTimer();
+}
+
+countdown( "countdown", 10, 0 );
+
+    </script>

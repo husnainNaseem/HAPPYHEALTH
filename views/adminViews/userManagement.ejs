@@ -1,0 +1,101 @@
+<div class="app-main__inner">
+
+    <div class="table-title">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2><b>User Management</b></h2>
+            </div>
+            <!-- <div class="col-sm-6">
+            <button type="button" class="btn btn-primary pull-right" onclick="location.href = '/addUser'">Add New User</button>
+          </div> -->
+        </div>
+    </div>
+    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for users"> -->
+    <!-- <h3 style="text-align: center;">User Management</h3> -->
+    <!-- <div class="col-sm-12 col-md-12">
+        <h2><b>User Management</b></h2>  
+        <button type="button" class="btn btn-primary pull-right" onclick="location.href = '/addUser'">Add New User</button>
+        <br>
+      
+    </div>
+    <br> -->
+    <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for users"> -->
+    <!-- <h3 style="text-align: center;">User Management</h3> -->
+    <!-- <div class="col-sm-12 col-md-12">
+        <h2><b>User Management</b></h2>  
+        <button type="button" class="btn btn-primary pull-right" onclick="location.href = '/addUser'">Add New User</button>
+        <br>
+      
+    </div>
+    <br> -->
+
+    <div class="table-responsive">
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Email</th>
+                    <!-- <th scope="col">Password</th> -->
+                    <!-- <th scope="col">Challenges</th> -->
+                    <!-- <th scope="col">Profile</th> -->
+                    <!-- <th scope="col" style="text-align:center">Actions</th> -->
+
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i=0; i < result.length;i++) { %>
+                    <tr>
+                        <th scope="row">
+                            <%= result[i].userId %>
+                        </th>
+                        <td><a href="/userInfo/<%= result[i].userId%>">
+                                <%= result[i].userName%>
+                            </a></td>
+                        <td>
+                            <%= result[i].fullName%>
+                        </td>
+                        <td>
+                            <%= result[i].email%>
+                        </td>
+                        <!-- <td>
+                            <%= result[i].password%>
+                        </td> -->
+                        <!-- <td>
+                        <a href="">View</a>
+                    </td> -->
+                        <!-- <td>
+                            <form action="editUser/<%= result[i].userId%>" method="get">
+                                <button type="submit" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Edit</button>
+                            </form>
+                        </td> -->
+                        <!-- <td> -->
+                            <!-- <div class=row> -->
+                            <!-- <div class=col-md-6>
+                                    <form action="editUserInfo/<%= result[i].userId%>" method="get">
+                                        <button type="submit" id="PopoverCustomT-1"
+                                            class="btn btn-sm btn-md btn-info">Edit</button>
+                                    </form>
+                                </div> -->
+                            <!-- <div class=col-md-6> -->
+                            <!-- <form action="deleteUser/<%= result[i].userId%>" method="get">
+                                <button type="submit" id="PopoverCustomT-1"
+                                    class="btn btn-sm btn-md btn-danger" onclick="deleteUser()">Delete</button>
+                            </form> -->
+                            <!-- </div>
+                            </div> -->
+                        <!-- </td> -->
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<script>
+    function deleteUser(){
+        alert("User Deleted");
+    }
+</script>

@@ -1,0 +1,109 @@
+<div class="app-main__inner">
+  <section>
+    <div class="container app-container-wrapper">
+      <div class="row justify-content-center">
+        <div class="col-lg-4">
+          <form method="POST" class="my-5" action="userHydration">
+            <div class="form-group">
+              <%- include ('../partials/messages') %>
+              <h2 class="d-flex justify-content-center py-3">Water Intake</h2>
+            </div>
+            <div class="form-row">
+              <label>Please enter the quantity of water consumed.</label>
+            </div>
+            <div class="form-row">
+              <label for="dateText">Date</label>
+              <input type="date" class="date form-control" id="datepicker1" name="datepicker1"
+                            placeholder="mm/dd/yyyy" min='1899-01-01'>
+              
+              <!-- <input  id="demo" class="form-control" /> -->
+            </div>
+
+            <div class="form-row">
+              <label for="username">Number of Ounces:</label>
+              <input
+                type="number"
+                id="water"
+                step="0.01"
+                min="0"
+                name="water"
+                class="form-control"
+                placeholder="0"
+                value="<%= typeof water != 'undefined' ? water : '' %>"
+              />
+            </div>
+            <div class="form-row">
+              <label for="password">Personal Daily Goal</label>
+              <input
+                type="number"
+                step="0.01"
+                min="0"
+                id="waterGoal"
+                name="waterGoal"
+                class="form-control"
+                placeholder="0"
+                value="<%= typeof waterGoal != 'undefined' ? waterGoal : '' %>"
+              />
+            </div>
+            <!-- <div class="form-row">
+              <label for="password">Monthly Goal</label>
+              <input
+                type="number"
+                min="0"
+                id="waterGoal"
+                name="waterGoal"
+                class="form-control"
+                placeholder="0"
+                value="<%= typeof waterGoal != 'undefined' ? waterGoal : '' %>"
+              />
+            </div> -->
+            <!-- <p>Note: 1 Glass= 8 Ounces on average</p> -->
+            <div class="form-row"></div>
+
+            <div class="form-row">
+              <div class="col-lg-12">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  style="margin-top: 10px"
+                >
+                  Update
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script>
+
+  let today = new Date();
+  let dd = today.getDate();
+  let mm = today.getMonth()+1; //January is 0!
+  let yyyy = today.getFullYear();
+   if(dd<10){
+          dd='0'+dd
+      } 
+      if(mm<10){
+          mm='0'+mm
+      } 
+  
+  today = yyyy+'-'+mm+'-'+dd;
+  document.getElementById("datepicker1").setAttribute("max", today);
+  document.getElementById("datepicker1").value=today;
+  
+  $("#datepicker1").on("change",function(){
+    let date=document.getElementById("datepicker1").value;
+    $.ajax({
+          type: 'GET',
+          url: 'userHydration/'+date,
+          success: function(result) {
+            document.getElementById("water").value=result.water;
+            document.getElementById("waterGoal").value=result.waterGoal;
+               //$('#champ').html(result);
+          }
+        });
+  })
+  </script>

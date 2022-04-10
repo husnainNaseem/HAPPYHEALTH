@@ -1,0 +1,64 @@
+<div class="app-main__inner">
+  <section>
+    <div class="container app-container-wrapper">
+      <div class="row justify-content-center">
+        <div class="col-lg-4">
+          <form action="/" method="POST" class="my-5">
+            <div class="form-group">
+              <h2 class="d-flex justify-content-center" ; style="color:green;"> Welcome User!</h2>
+              <%- include ('../partials/messages') %>
+            </div>
+            
+            <div class="form-row">
+              <label for="username" class="mb-0">Username</label>
+              <input type="text" id="username" name="username" class="form-control" placeholder="Username"
+                value="<%= typeof username != 'undefined' ? username : '' %>" />
+            </div>
+            <div class="form-row">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" name="password" value="<%= typeof password != 'undefined' ? password : '' %>" id="password">  
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick="toggleVisibility()">
+              <label class="form-check-label" for="flexCheckDefault">
+                Show Password
+              </label>
+            </div>
+            <div class="form-row justify-content-end mb-2">
+
+              <a  href="/forgotPassword">Forgot password?</a>
+            </div>
+            <div class="form-row">
+              <button type="submit" class="btn btn-primary btn-block">
+                Sign in
+              </button>
+            </div>
+            <div class="form-row justify-content-between my-2">
+              <a href="adminLogin">Administrator</a>
+              <a href="signUp">Sign Up!</a>
+            </div>
+          </form>
+          <!-- <div class="col-lg-12 d-flex justify-content-between mt-3 mb-4"><a class="fab fa-facebook-f" i
+            href="https://en-gb.facebook.com/login/" target="_blank"> </a><a class="fab fa-twitter" i
+            href="https://twitter.com/login?lang=en" target="_blank"> </a><a class="fab fa-google-plus-g" i
+            href="https://mail.google.com" target="_blank"> </a></div> -->
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+
+
+
+<script>  
+  function toggleVisibility() {  
+    var getPasword = document.getElementById("password");  
+    if (getPasword.type === "password") {  
+      getPasword.type = "text";  
+    } else {  
+      getPasword.type = "password";  
+    }  
+  }  
+  </script>  

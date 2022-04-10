@@ -1,0 +1,169 @@
+<div class="app-main__inner">
+
+    <div>
+
+        <!-- <h1> <b>Manage Users</b> </h1> -->
+        <h3>Challenge Name : <%= challengeData[0].challengeName %>
+        </h3>
+    </div>
+
+    <form action="<%= challengeData[0].challengeId%>" method="POST">
+        <div>
+            <label for="addUser"><strong>Invite User: </strong> </label>
+
+            <select name="userId" id="mySelect" onchange="refreshButtons()" class="form-control addUser "
+                multiple="true" required>
+                <% for (var i=0; i < notJoinedUsers.length;i++) { %>
+                    <option id="notJoinedUSERS" value="<%= notJoinedUsers[i].userId %>">
+                        <%= notJoinedUsers[i].userName %>
+                    </option>
+                    <% } %>
+                        <% if(notJoinedUsers.length===0){ %>
+                            <option disabled>
+                                All Users are invited
+                            </option>
+                            <% } %>
+            </select>
+            <% if(notJoinedUsers.length===0){ %>
+                <input type="submit" value="Invite" id="inviteBtn" class="btn btn-primary" disabled></input>
+                <% }else{ %>
+            <input type="submit" value="Invite" id="inviteBtn" class="btn btn-primary"></input>
+            <% } %>
+        </div>
+
+    </form>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Sl.No</th>
+                <th>Username</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i=0; i < joinedUsers.length;i++) { %>
+                <tr>
+                    <th scope="row">
+                        <%= i+1 %>
+                    </th>
+                    <td>
+                        <%= joinedUsers[i].userName%>
+                    </td>
+                    <td>
+                        <% if( joinedUsers[i].activeUser==1) { %>
+                            Joined
+                            <% }else{ %>
+                                Pending
+                                <% } %>
+                    </td>
+                    <td>
+                        <form action="/removeUser/<%= challengeData[0].challengeId%>/<%= joinedUsers[i].userId%>"
+                            method="POST">
+
+                            <% if( joinedUsers[i].activeUser ) { %>
+                                <button type="submit" id="mySelect" onclick="refreshButtons()"
+                                    class="btn btn-primary btn-danger">Remove</button>
+                                <% }else{ %>
+                                    <button type="submit" id="mySelect" onclick="refreshButtons()"
+                                        class="btn btn-primary btn-warning">Cancel Invitation</button>
+                                    <% } %>
+
+                        </form>
+                    </td>
+                </tr>
+                <% } %>
+        </tbody>
+    </table>
+
+
+    <!-- <div>
+				<%= notJoinedUsers[0] %>
+			</div> -->
+
+
+</div>
+
+<script>
+
+    // var button = document.getElementById("inviteBtn");
+    // var x = document.getElementById("mySelect").selectedOptions.length;
+    // console.log(x, "======> count")
+    // if (x === 0) {
+    // 	  button.disabled = true;
+    // }else {
+    // 	  button.disabled = false;
+    // }
+
+    // var button = document.getElementById("inviteBtn");
+    // if ('<%= notJoinedUsers.length %>' === '0') {
+    // 	button.disabled = true;
+    // } else {
+    // 	button.disabled = false;
+    // }
+
+
+
+
+
+    function selectedItems() {
+        // GETTING USERS 
+        var userResult = document.getElementById("usersResult");
+        userResult.value = "";
+        var x = document.getElementById("users");
+        for (var i = 0; i < x.options.length; i++) {
+            if (x.options[i].selected === true) {
+                userResult.value += x.options[i].value + " ";
+                document.getElementById("usersResult").value = userResult.value;
+            }
+            console.log(userResult.value, "===========> ")
+        }
+    }
+
+    function selectedUsers() {
+        var userResult = document.getElementById("usersResult");
+        userResult.value = "";
+        var x = document.getElementById("users");
+        for (var i = 0; i < x.options.length; i++) {
+            if (x.options[i].selected === true) {
+                userResult.value += x.options[i].value + " ";
+                document.getElementById("usersResult").value = userResult.value;
+            }
+        }
+        // if(document.getElementById("usersResult").value == ""){
+        // 	document.getElementById("usersResult").innerHTML = "Please select atleast one. "
+        // }
+    }
+
+    $('option').mousedown(function (e) {
+        e.preventDefault();
+        var originalScrollTop = $(this).parent().scrollTop();
+        console.log(originalScrollTop);
+        $(this).prop('selected', $(this).prop('selected') ? false : true);
+        var self = this;
+        $(this).parent().focus();
+        setTimeout(function () {
+            $(self).parent().scrollTop(originalScrollTop);
+        }, 0);
+
+        return false;
+    });
+
+
+
+
+
+
+</script>
+
+<style>
+    .addUser {
+        width: 250px;
+        display: inline-flex;
+    }
+
+    .btn {
+        display: inline-flex;
+    }
+</style>

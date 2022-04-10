@@ -1,0 +1,174 @@
+<div class="app-main__inner">
+
+  <div class="container-fluid col-md-6">
+    <form action="/editChallenge/<%= result[0].challengeId %>" method="POST">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" value="<%= result[0].challengeName %>" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" class="form-control" name="description" value="<%= result[0].challengeDescription %>"
+          required></input>
+      </div>
+
+      <!-- <div class="form-group">
+                <label for="challengeType" > Challenge Type </label>
+					<select class="form-select" name="challengeType" multiple selected=<%= result[0].challengeType %> >
+					<option value="Step Count">Step Count</option>
+					<option value="Sleep Hours">Sleep Hours</option>
+					<option value="Me Time">Me Time </option>
+					<option value="Water"> Water </option>
+					<option value="Fruits & Veggies"> Fruits & Veggies </option>
+					<option value="Physical Activity">Physical Activity</option>
+                </select>
+            </div> -->
+
+      <div class="form-group">
+        <label for="challengeType"> Challenge Type </label>
+        <select id="metrics" class="mul-select form-control" multiple="true" name="challengeType"    value="<%= result[0].challengeType %> ">
+          <option value="Step Count">Step Count</option>
+          <option value="Sleep Hours">Sleep Hours</option>
+          <option value="Mindful Minutes">Mindful Minutes </option>
+          <option value="Water"> Water </option>
+          <option value="Fruits & Veggies"> Fruits & Veggies </option>
+          <option value="Physical Activity">Physical Activity</option>
+        </select>
+        <span id="result"> </span>
+
+        <input type="text" id="result" name="CT" value="<%= result[0].challengeType %>" hidden>
+      </div>
+
+
+      <div class="form-group">
+        <label for="start">Start date:</label>
+        <input type="date" id="startId" name="startDate" required>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="start">End date:</label>
+        <input type="date" id="endId" name="endDate" required>
+        </span>
+      </div>
+
+
+
+      <!-- <div class="form-group">
+                <label for="Invite Users"> Invite Users </label>
+                <select multiple>
+                    <option value="Running Challenges"> All </option>
+                    <option value="Cycling Challenges"> James Bond </option>
+                    <option value="Calories Burned Challenge"> William Shakespeare</option>
+                    <option value="Weight Loss Challenge "> John Daniel </option>
+                    <option value="Swimming Challenge"> Robert Cart </option>
+                    <option value="Cardio Challenge"> Michael Jackson </option>
+                </select>
+            </div> -->
+
+      <!-- <div id="line1">
+				<table border="1">
+				  <tr>
+					<td>
+					  <span id="a" name="endDate" value="<%= result[0].endDate %>" > </span><span id="b"> <input type="date"  value="<%= result[0].endDate %>" > </span>
+					</td>
+				  </tr>
+				</table>
+			  </div> -->
+
+      <div>
+        <input type="submit" value="Update" class="btn btn-primary btn-sm" onclick="editedChallenge()">
+      </div>
+    </form>
+  </div>
+
+
+</div>
+
+
+
+<script>
+  $(document).ready(function () {
+    $("#metrics").select2({
+      placeholder: "<%= result[0].challengeType %> ", //placeholder
+      tags: true,
+      tokenSeparators: ['/', ',', ';', " "],
+    });
+  })
+  function selectedItems() {
+    var spanresult = document.getElementById("result");
+    spanresult.value = "";
+    var x = document.getElementById("metrics");
+    for (var i = 0; i < x.options.length; i++) {
+      if (x.options[i].selected === true) {
+        spanresult.value += x.options[i].value + " ";
+        document.getElementById("result").innerHTML = spanresult.value;
+      }
+    }
+    if (document.getElementById("result").value == "") {
+      document.getElementById("result").innerHTML = "Please select atleast one. "
+    }
+  }
+  const startDate = "<%= result[0].startDate %>"
+  const endDate = "<%= result[0].endDate %>"
+  console.log(startDate, endDate,"------start and end date")
+  let [month, date, year] = startDate.split("/")
+  console.log(month, date, year)
+  const startDateFormat = year + '-' + month + '-' + date
+  console.log(startDateFormat, "------------date format")
+  $('#startId').val(startDateFormat)
+  let [m, d, y] = endDate.split("/")
+  console.log(m, d, y)
+  const endDateFormat = y + '-' + m + '-' + d
+  console.log(endDateFormat, "------------date format")
+  $('#endId').val(endDateFormat)
+
+  $('option').mousedown(function (e) {
+        e.preventDefault();
+        var originalScrollTop = $(this).parent().scrollTop();
+        console.log(originalScrollTop);
+        $(this).prop('selected', $(this).prop('selected') ? false : true);
+        var self = this;
+        $(this).parent().focus();
+        setTimeout(function () {
+            $(self).parent().scrollTop(originalScrollTop);
+        }, 0);
+
+        return false;
+    });
+</script>
+
+<!-- 
+<script>
+    let startDate = "<%= result[0].startDate %>"
+    console.log(startDate, "---------before");
+    const [month, date, year] = startDate.split("/")
+    startDate = year + '-' + month + '-' + date
+    console.log(startDate, "----------after");
+    $('#startId').val(startDate)
+    let endDate = "<%= result[0].endDate %>"
+    const [m, d, y] = endDate.split("/")
+    endDate = y + '-' + m + '-' + d
+    console.log(endDate, "----------after");
+    $('#endId').val(endDate)
+    let challengeType = "<%= result[0].challengeType %>"
+    let participantType = "<%= result[0].participantType %>"
+    console.log(challengeType,participantType,"------challenge participant type");
+    $('#challengeId').val(challengeType)
+    $('#participantId').val(participantType)
+</script> -->
+
+<style>
+  div#line1 span#a {
+    display: inline;
+  }
+  div#line1:hover span#a {
+    display: none;
+  }
+  div#line1 span#b {
+    display: none;
+  }
+  div#line1:hover span#b {
+    display: inline;
+  }
+</style>

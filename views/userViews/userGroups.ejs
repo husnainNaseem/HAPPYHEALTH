@@ -1,0 +1,63 @@
+<div class="app-main__inner">
+
+  <div class="tabs">
+    <ul class="tabs-list">
+      <li class="active">
+        <a href="/activeGroups">Available Groups</a>
+      </li>
+      <li><a href="/joinedGroups">Joined Groups</a></li>
+      <li><a href="/createGroup">Create Group</a></li>
+    </ul>
+
+
+    <div id="tab1" class="tab">
+      <h3>Available Groups</h3>
+      <ul class="list-group col-md-6 ">
+        <% for( let i=0; i < availableGroups.length; i++ ) { %>
+
+          <form action="/userGroups/<%= availableGroups[i].groupId %> " method="post">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <%= availableGroups[i].groupName %>
+                <input type="submit" class="btn btn-success" value="Join" onClick="alert('Joined Successfully !')">
+                </input>
+            </li>
+            <% } %>
+      </ul>
+    </div>
+    <div id="tab3" class="tab">
+      <h3>Create Group</h3>
+
+      <form class="col-md-6" action="/createNewGroup" method="POST">
+        <div class="form-group">
+          <label>Group Name</label>
+          <input type="text" name="groupName" class="form-control" placeholder="Enter Group Name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Add Users to the group: </label>
+          <select class="selectpicker form-control">
+            <option selected>Adam</option>
+            <option>Evan</option>
+            <option>Skyler</option>
+            <option>Tyler</option>
+            <option>Bob</option>
+            <option>Rogers</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+    </div>
+
+    <div id="tab4" class="tab">
+      <h3>Manage Groups</h3>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener = function () {
+    document.getElementById("btn").click();
+  };
+ </script>

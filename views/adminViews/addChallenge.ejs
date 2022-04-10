@@ -1,0 +1,153 @@
+
+    <style>
+        .mul-select{
+            width: 100%;
+        }
+    </style>
+
+<div class="app-main__inner">
+
+	<div class="container-fluid col-md-8">
+		<form action="/addChallenge" method="POST">
+			<div class="form-group">
+				<label>Name</label>
+				<input type="text" name="name" class="form-control" required>
+			</div>
+			<div class="form-group">
+				<label>Description</label>
+				<input type="text" class="form-control" name="description" required></input>
+			</div>
+
+
+            <!-- <div class="form-group">
+                <label for="challengeType"> Challenge Type </label>
+                <select class="form-select" name="challengeType" multiple>
+					<option value="Step Count">Step Count</option>
+					<option value="Sleep Hours">Sleep Hours</option>
+					<option value="Mindful Minutes">Mindful Minutes </option>
+					<option value="Water"> Water </option>
+					<option value="Fruits & Veggies"> Fruits & Veggies </option>
+					<option value="Physical Activity">Physical Activity</option>
+                </select>
+            </div> -->
+
+			<div class="form-group input-group ">
+				<label for="challengeType" > Challenge Type </label>
+				<select id="metrics" class="mul-select col-md-6" multiple="true" name="challengeType" required>
+					<option value="Step Count">Step Count</option>
+					<option value="Sleep Hours">Sleep Hours</option>
+					<option value="Mindful Minutes">Mindful Minutes </option>
+					<option value="Water"> Water </option>
+					<option value="Fruits & Veggies"> Fruits & Veggies </option>
+					<option value="Physical Activity">Physical Activity</option>
+				</select>
+
+				<div class="input-group-addon input-group-button">
+					<!-- <input type="button" id="btn1" class="btn btn-info" value="Confirm" onclick="selectedItems()"> </input> -->
+                </div>
+				<span id="result"  hidden > </span> 
+			</div>
+
+			<div class="form-group input-group ">
+				<label for="inviteUsers" > Invite Users </label>
+				<select id="users" name="userId" class="mul-select col-md-6" multiple="true" required>
+					<% users.map(user=> { %>
+						<option id="UI" value="<%= user.userId %>">  <%= user.userName %>
+						</option>
+						<% }) %>
+				</select>
+			</div>
+
+
+            <div class="form-group">
+                <label for="start">Start date:</label>
+                <input type="date" id="start" name="startDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="start">End date:</label>
+                <input type="date" id="end" name="endDate" required>
+            </div>
+
+			<div class="form-group" hidden>
+
+			</div>
+
+            <div>
+                <input type="submit" onclick="selectedItems()"  value="submit" class="btn btn-primary btn-sm">
+            </div>
+        </form>
+    </div>
+
+</div>
+
+
+<script>
+	
+	$(document).ready(function(){
+		$("#metrics").select2({
+				placeholder: "Choose metrics", //placeholder
+				tags: true,
+				tokenSeparators: ['/',',',';'," "],
+			});
+		})
+
+		function selectedItems(){
+				var spanresult = document.getElementById("result");
+				spanresult.value = "";
+				var x = document.getElementById("metrics");
+				for(var i = 0;i<x.options.length;i++){
+					if(x.options[i].selected === true){
+						spanresult.value += x.options[i].value+" ";
+						document.getElementById("result").innerHTML= spanresult.value;
+
+					}
+				}
+				if(document.getElementById("result").value == ""){
+					document.getElementById("result").innerHTML = "Please select atleast one. "
+				}
+
+
+				// GETTING USERS 
+				var userResult = document.getElementById("usersResult");
+				userResult.value = "";
+				var x = document.getElementById("users");
+				for(var i = 0;i<x.options.length;i++){
+					if(x.options[i].selected === true){
+						userResult.value += x.options[i].value+" ";
+						document.getElementById("usersResult").value= userResult.value;
+					}
+					console.log(userResult.value, "===========> ")
+				}
+			}
+
+			function selectedUsers(){
+				var userResult = document.getElementById("usersResult");
+				userResult.value = "";
+				var x = document.getElementById("users");
+				for(var i = 0;i<x.options.length;i++){
+					if(x.options[i].selected === true){
+						userResult.value += x.options[i].value+" ";
+						document.getElementById("usersResult").value= userResult.value;
+					}
+				}
+				// if(document.getElementById("usersResult").value == ""){
+				// 	document.getElementById("usersResult").innerHTML = "Please select atleast one. "
+				// }
+			}
+
+			$('option').mousedown(function(e) {
+    e.preventDefault();
+    var originalScrollTop = $(this).parent().scrollTop();
+    console.log(originalScrollTop);
+    $(this).prop('selected', $(this).prop('selected') ? false : true);
+    var self = this;
+    $(this).parent().focus();
+    setTimeout(function() {
+        $(self).parent().scrollTop(originalScrollTop);
+    }, 0);
+    
+    return false;
+});
+
+</script>
